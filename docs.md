@@ -12,7 +12,7 @@ UV scheme for animating the pixel strips
             - naive: `1/128`
             - better: `1e-13`
 
-    - Offset: Starting at the far left, moving right
+    - Offset: Starting at the far left, moving right. Starting at the bottom, moving up.
         - X
             - naive: `color_int/128`
             - omitting leftmost pixel: `color_int/128 + 1/1024`
