@@ -1,0 +1,32 @@
+UV scheme for animating the pixel strips
+
+- Texture
+    - Tiling: The fraction of the full image to be displayed
+        - X
+            - naive: `1/128`
+            - omitting leftmost pixel: `(7/8)/128`
+            - addressing UV bleeding: 
+                - `del_frac = 1/128`
+                - `((7/8)/128)*(1-del_frac)`
+        - Y
+            - naive: `1/128`
+            - better: `1e-13`
+
+    - Offset: Starting at the far left, moving right
+        - X
+            - naive: `color_int/128`
+            - omitting leftmost pixel: `color_int/128 + 1/1024`
+            - addressing UV bleeding: 
+                - `color_int/128 + 1/1024`
+                - `+ ((7/8)/128)*(del_frac/2)`
+            - animation:
+                - from
+                    - `0 + 1/1024`
+                    - `+ ((7/8)/128)*(del_frac/2)`
+                - to
+                    - `1 + 1/1024`
+                    - `+ ((7/8)/128)*(del_frac/2)`
+        - Y
+            - manually in editor, naive: `px_int/128`
+            - manually in editor, better: `(px_int + 0.5)/128`
+            - animation: from `0.5/128` to `127.5/128`
