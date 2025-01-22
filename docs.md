@@ -11,6 +11,7 @@ UV scheme for animating the pixel strips
         - Y
             - naive: `1/128`
             - better: `1e-13`
+            - even better: `0.5/128`
 
     - Offset: Starting at the far left, moving right. Starting at the bottom, moving up.
         - X
@@ -21,12 +22,16 @@ UV scheme for animating the pixel strips
                 - `+ ((7/8)/128)*(del_frac/2)`
             - animation:
                 - from
-                    - `0 + 1/1024`
+                    - `0/128 + 1/1024`
                     - `+ ((7/8)/128)*(del_frac/2)`
                 - to
-                    - `1 + 1/1024`
-                    - `+ ((7/8)/128)*(del_frac/2)`
+                    - `127/128 + 1/1024`
+                    - `+ ((7/8)/128)*(del_frac/2)`, putting the entire constant offset in `PxColors`
+                      - apparently constant offsets are ignored in additive animations??????????
         - Y
             - manually in editor, naive: `px_int/128`
             - manually in editor, better: `(px_int + 0.5)/128`
             - animation: from `0.5/128` to `127.5/128`
+            - manually in editor, even better: `(px_int + 0.25)/128`
+            - animation: from `0/128` to `127/128`, putting a constant `0.25/128` offset in `PxColors`
+                - apparently constant offsets are ignored in additive animations??????????
