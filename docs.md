@@ -17,6 +17,7 @@ UV scheme for animating the pixel strips
         - X
             - naive: `color_int/128`
             - omitting leftmost pixel: `color_int/128 + 1/1024`
+            - animation: from `0 + 1/1024` to `127/128 + 1/1024`
             - addressing UV bleeding: 
                 - `color_int/128 + 1/1024`
                 - `+ ((7/8)/128)*(del_frac/2)`
