@@ -72,7 +72,7 @@ They should each get their own animations, with the same PxStrip names.
 
 To create an animation, create a copy of the avatar, because the Unity animation "record" or "preview" feature might get the avatar stuck in the motorcycle pose.
 
-Create an animation with two frames - 0 and 1, or 0 and 127. Record and scroll UVs with the Inspector, according to the math described in the first part of this file.
+Create an animation with two frames - 0 and 1, or 0 and 127. Record and scroll UVs with the Inspector, according to the math described in the first part of this file. After recording, toggle Preview off.
 
 Automate this with a tool like TinyTask.
 
