@@ -72,6 +72,8 @@ They should each get their own animations, with the same PxStrip names.
 
 To create an animation, create a copy of the avatar, because the Unity animation "record" or "preview" feature might get the avatar stuck in the motorcycle pose.
 
+To create an animation on an asset that'll be *distributed*, package the PxScreen as a prefab, and animate relative to the root of the prefab, rather than relative to the root of the avatar.
+
 Create an animation with two frames - 0 and 1, or 0 and 127. Record and scroll UVs with the Inspector, according to the math described in the first part of this file. After recording, toggle Preview off.
 
 Automate this with a tool like TinyTask.
@@ -119,3 +121,46 @@ Create an animation layer that goes *above* all the PxStrip layers:
 - Weight: 1
 - Override
 - Motion Time: PxColors
+
+
+
+
+
+
+
+# Palette scheme
+
+There are 16 light "foreground" colors, and 8 dark "background" colors. They mostly overlap, for a total of 17 colors. But the foreground removes black, and adds orange and sky blue.
+
+Currently, the palette image is split up into 8 total regions representing the background color, and each region is subdivided into 16 sub-regions for each foreground color.
+
+(This may be reversed later - 16 large foreground regions, and 8 smaller background sub-regions - so that PxColors can be used to animate a flashlight color, drawn from the light foreground color.)
+
+If the foreground and background are the same color, then the foreground is manually lightened in `pixel-strip-color.png`.
+
+
+## Alternate scheme for more palettes
+
+Instead of 7-pixel strips with 1 unused bit, we could switch to 2x3-pixel blocks with 2 unused bits.
+
+We could then use the 2 bits to pick an alternate color scheme.
+
+### Alternate scheme 1: More brightness control
+
+One bit can set the background to a darker color (usually black), and one bit can set the foreground to a lighter color (usually white).
+- Surprisingly, this seems more promising, mostly because it's often useful to replace the background with black.
+- We can make red go to orange or yellow, and orange go to yellow.
+- We can make dark colors go to their lighter version.
+
+### Alternate scheme 2: More hue control
+
+The 2 bits can be used to select any of 3 alternate palettes, which preserve lightness but provide alternative hues, probably for the foreground color.
+
+
+## Alternate scheme for more color depth
+
+Instead of 7-pixel strips, we can use 3-pixel strips, using 6 bits. (We can reuse the extra 2 bits as described above.)
+
+The 3-pixel strips use 2-bit monochrome.
+
+We make up for the reduction in pixels by adding 
